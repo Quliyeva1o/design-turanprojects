@@ -656,7 +656,7 @@ export default function Create() {
           isActive={opt.key === ortaKey}
           zIndex={22}
           alt={`orta-${opt.key}`}
-          style={{ transform: "scale(1.01) translateX(3px)" }}
+          // style={{ transform: "scale(1.01) translateX(3px)" }}
         />
       ))}
 
