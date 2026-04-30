@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useEffect } from "react";
 import "./create.css";
 import type { ImageLayerProps, Selections } from "./types";
 import { CatalogPanel } from "./components/CatalogPanel";
@@ -63,25 +63,25 @@ export default function Create() {
   const statusCatColor = isNight ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.45)";
   const statusValColor = isNight ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.8)";
 
-  // useEffect(() => {
-  //   const preload = (src: string) => {
-  //     const img = new Image();
-  //     img.src = src;
-  //   };
+  useEffect(() => {
+    const preload = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
 
-  //   const hovuz = HOVUZLAR.find((o) => o.key === hovuzKey);
-  //   const kenar = KENAR_KAFELLER.find((o) => o.key === kenarKey);
-  //   const orta = ORTA_KAFELLER.find((o) => o.key === ortaKey);
-  //   const teras = TERASLAR.find((o) => o.key === terasKey);
-  //   if (teras) preload(teras.gece);
-  //   if (teras) preload(teras.gunduz);
-  //   if (hovuz) preload(hovuz.gece);
-  //   if (hovuz) preload(hovuz.gunduz);
-  //   if (kenar) preload(kenar.gece);
-  //   if (kenar) preload(kenar.gunduz);
-  //   if (orta) preload(orta.gece);
-  //   if (orta) preload(orta.gunduz);
-  // }, [hovuzKey, kenarKey, ortaKey, terasKey]);
+    const hovuz = HOVUZLAR.find((o) => o.key === hovuzKey);
+    const kenar = KENAR_KAFELLER.find((o) => o.key === kenarKey);
+    const orta = ORTA_KAFELLER.find((o) => o.key === ortaKey);
+    const teras = TERASLAR.find((o) => o.key === terasKey);
+    if (teras) preload(teras.gunduz);
+    if (orta) preload(orta.gunduz);
+    if (kenar) preload(kenar.gunduz);
+    if (hovuz) preload(hovuz.gunduz);
+    if (hovuz) preload(hovuz.gece);
+    if (kenar) preload(kenar.gece);
+    if (orta) preload(orta.gece);
+    if (teras) preload(teras.gece);
+  }, [hovuzKey, kenarKey, ortaKey, terasKey]);
 
   return (
     <div
@@ -261,4 +261,3 @@ export default function Create() {
     </div>
   );
 }
-
