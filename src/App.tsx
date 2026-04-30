@@ -44,6 +44,7 @@ const ImageLayer = memo(function ImageLayer({
 export default function Create() {
   const [isNight, setIsNight] = useState(false);
   const [selections, setSelections] = useState<Selections>(DEFAULT_SELECTIONS);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleNight = useCallback(() => setIsNight((p) => !p), []);
 
@@ -58,30 +59,55 @@ export default function Create() {
     teras: terasKey,
   } = selections;
 
+  const allImages = [
+    ...HOVUZLAR.flatMap((o) => [o.gece, o.gunduz]),
+    ...KENAR_KAFELLER.flatMap((o) => [o.gece, o.gunduz]),
+    ...ORTA_KAFELLER.flatMap((o) => [o.gece, o.gunduz]),
+    ...TERASLAR.flatMap((o) => [o.gece, o.gunduz]),
+  ];
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadImage = (src: string) =>
+      new Promise<void>((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+      });
+
+    Promise.all(allImages.map(loadImage)).then(() => {
+      if (!cancelled) setIsLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const statusBg = isNight ? "rgba(4,4,8,0.75)" : "rgba(255,255,255,0.72)";
   const statusBorder = isNight ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)";
   const statusCatColor = isNight ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.45)";
   const statusValColor = isNight ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.8)";
-
-  useEffect(() => {
-    const preload = (src: string) => {
-      const img = new Image();
-      img.src = src;
-    };
-
-    const hovuz = HOVUZLAR.find((o) => o.key === hovuzKey);
-    const kenar = KENAR_KAFELLER.find((o) => o.key === kenarKey);
-    const orta = ORTA_KAFELLER.find((o) => o.key === ortaKey);
-    const teras = TERASLAR.find((o) => o.key === terasKey);
-    if (teras) preload(teras.gece);
-    if (teras) preload(teras.gunduz);
-    if (hovuz) preload(hovuz.gece);
-    if (hovuz) preload(hovuz.gunduz);
-    if (kenar) preload(kenar.gece);
-    if (kenar) preload(kenar.gunduz);
-    if (orta) preload(orta.gece);
-    if (orta) preload(orta.gunduz);
-  }, [hovuzKey, kenarKey, ortaKey, terasKey]);
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#000",
+          color: "#fff",
+          fontSize: 18,
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div
@@ -102,7 +128,7 @@ export default function Create() {
           zIndex={10}
           alt={`hovuz-${opt.key}`}
         />
-      ))}{" "}
+      ))}
       {HOVUZLAR.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -112,7 +138,8 @@ export default function Create() {
           alt={`hovuz-${opt.key}`}
         />
       ))}
-      {/* KENAR KAFELLƏR */}
+
+      {/* KENAR */}
       {KENAR_KAFELLER.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -121,7 +148,7 @@ export default function Create() {
           zIndex={20}
           alt={`kenar-${opt.key}`}
         />
-      ))}{" "}
+      ))}
       {KENAR_KAFELLER.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -131,7 +158,8 @@ export default function Create() {
           alt={`kenar-${opt.key}`}
         />
       ))}
-      {/* ORTA KAFELLƏR */}
+
+      {/* ORTA */}
       {ORTA_KAFELLER.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -139,7 +167,6 @@ export default function Create() {
           isActive={opt.key === ortaKey && isNight}
           zIndex={22}
           alt={`orta-${opt.key}`}
-          // style={{ transform: "scale(1.01) translateX(3px)" }}
         />
       ))}
       {ORTA_KAFELLER.map((opt) => (
@@ -149,9 +176,10 @@ export default function Create() {
           isActive={opt.key === ortaKey && !isNight}
           zIndex={22}
           alt={`orta-${opt.key}`}
-          // style={{ transform: "scale(1.01) translateX(3px)" }}
         />
       ))}
+
+      {/* TERAS */}
       {TERASLAR.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -161,7 +189,6 @@ export default function Create() {
           alt={`teras-${opt.key}`}
         />
       ))}
-      {/* TERASLAR */}
       {TERASLAR.map((opt) => (
         <ImageLayer
           key={opt.key}
@@ -171,14 +198,16 @@ export default function Create() {
           alt={`teras-${opt.key}`}
         />
       ))}
-      {/* CATALOG PANEL */}
+
+      {/* PANEL */}
       <CatalogPanel
         categories={CATEGORIES}
         selections={selections}
         onSelect={handleSelect}
         isNight={isNight}
       />
-      {/* DAY / NIGHT TOGGLE */}
+
+      {/* TOGGLE */}
       <button
         onClick={toggleNight}
         title={isNight ? "Gündüzə keç" : "Gecəyə keç"}
@@ -208,7 +237,8 @@ export default function Create() {
       >
         {isNight ? "🌙" : "☀️"}
       </button>
-      {/* STATUS BAR */}
+
+      {/* STATUS */}
       <div
         style={{
           position: "absolute",
@@ -230,11 +260,13 @@ export default function Create() {
       >
         {CATEGORIES.map((cat) => {
           const sel = cat.options.find((o) => o.key === selections[cat.id]);
+
           return (
             <div
               key={cat.id}
               style={{ display: "flex", alignItems: "center", gap: 5 }}
             >
+              {" "}
               <span style={{ fontSize: 12 }}>{cat.icon}</span>
               <span
                 style={{
