@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── IMAGE LAYER ── */
+.img-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+  will-change: opacity;
+  transition: opacity 400ms ease;
+  backface-visibility: hidden;
+}
+.img-layer[data-active="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.img-layer[data-active="true"] {
+  opacity: 1;
+}
+
+/* ── THUMBNAIL ── */
+.thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── CATALOG SCROLLBAR ── */
+.catalog-scroll::-webkit-scrollbar {
+  width: 2px;
+}
+.catalog-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.catalog-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+.catalog-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+/* ── TILE CARD ── */
+.tile-card {
+  position: relative;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-width: 50px;
+  transition: transform 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.tile-card:hover {
+  transform: scale(1.06);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.tile-card.selected {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+  transform: scale(1.04);
+}
+
+/* Light mode tile card overrides */
+[data-night="0"] .tile-card {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+[data-night="0"] .tile-card:hover {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+[data-night="0"] .tile-card.selected {
+  border-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ── CATEGORY TAB ── */
+.cat-tab {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  position: relative;
+  transition: background 0.14s ease, color 0.14s ease;
+  flex-shrink: 0;
+}
+
+/* Night mode cat-tab */
+[data-night="1"] .cat-tab {
+  color: rgba(255, 255, 255, 0.28);
+}
+[data-night="1"] .cat-tab:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+}
+[data-night="1"] .cat-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Light mode cat-tab */
+[data-night="0"] .cat-tab {
+  color: rgba(0, 0, 0, 0.4);
+}
+[data-night="0"] .cat-tab:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.65);
+}
+[data-night="0"] .cat-tab.active {
+  background: rgba(0, 0, 0, 0.09);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+/* Selection dot indicator */
+.cat-tab .sel-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(130, 200, 160, 0.9);
+}
+
+/* ── TILE BUTTON RESET ── */
+.tile-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
