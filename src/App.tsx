@@ -73,15 +73,14 @@ export default function Create() {
     const kenar = KENAR_KAFELLER.find((o) => o.key === kenarKey);
     const orta = ORTA_KAFELLER.find((o) => o.key === ortaKey);
     const teras = TERASLAR.find((o) => o.key === terasKey);
-
+    if (teras) preload(teras.gece);
+    if (teras) preload(teras.gunduz);
     if (hovuz) preload(hovuz.gece);
     if (hovuz) preload(hovuz.gunduz);
     if (kenar) preload(kenar.gece);
     if (kenar) preload(kenar.gunduz);
     if (orta) preload(orta.gece);
     if (orta) preload(orta.gunduz);
-    if (teras) preload(teras.gece);
-    if (teras) preload(teras.gunduz);
   }, [hovuzKey, kenarKey, ortaKey, terasKey]);
 
   return (
