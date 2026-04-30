@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useEffect } from "react";
 import "./create.css";
 
 // =========================
@@ -92,9 +92,24 @@ const HOVUZLAR: Option[] = [
   { key: "a236", label: "A236", gunduz: a236, gece: a236gece },
   { key: "a276", label: "A276", gunduz: a276, gece: a276gece },
   { key: "bali", label: "Bali", gunduz: bali, gece: baligece },
-  { key: "floralblue", label: "Floral Blue", gunduz: floralblue, gece: floralblueGece },
-  { key: "floralgreen", label: "Floral Green", gunduz: floralgreen, gece: floralgreenGece },
-  { key: "judiGrey", label: "Judi Grey", gunduz: judiGreyKare, gece: judiGreyKareGece },
+  {
+    key: "floralblue",
+    label: "Floral Blue",
+    gunduz: floralblue,
+    gece: floralblueGece,
+  },
+  {
+    key: "floralgreen",
+    label: "Floral Green",
+    gunduz: floralgreen,
+    gece: floralgreenGece,
+  },
+  {
+    key: "judiGrey",
+    label: "Judi Grey",
+    gunduz: judiGreyKare,
+    gece: judiGreyKareGece,
+  },
   { key: "gpt", label: "GPT", gunduz: gpt, gece: gptgece },
 ];
 
@@ -102,14 +117,34 @@ const KENAR_KAFELLER: Option[] = [
   { key: "light", label: "Light", gunduz: light, gece: lightGece },
   { key: "judi", label: "Judi Grey", gunduz: judiGrey, gece: judiGreyGece },
   { key: "luca", label: "Luca Grey", gunduz: lucaGrey, gece: lucaGreyGece },
-  { key: "superstone", label: "Superstone", gunduz: superstone, gece: superstoneGece },
+  {
+    key: "superstone",
+    label: "Superstone",
+    gunduz: superstone,
+    gece: superstoneGece,
+  },
 ];
 
 const ORTA_KAFELLER: Option[] = [
   { key: "light", label: "Light", gunduz: lightorta, gece: lightortaGece },
-  { key: "judi", label: "Judi Grey", gunduz: judiGreyorta, gece: judiGreyortaGece },
-  { key: "luca", label: "Luca Grey", gunduz: lucaGreyOrta, gece: lucaGreyOrtaGece },
-  { key: "superstone", label: "Superstone", gunduz: superstone, gece: superstoneGece },
+  {
+    key: "judi",
+    label: "Judi Grey",
+    gunduz: judiGreyorta,
+    gece: judiGreyortaGece,
+  },
+  {
+    key: "luca",
+    label: "Luca Grey",
+    gunduz: lucaGreyOrta,
+    gece: lucaGreyOrtaGece,
+  },
+  {
+    key: "superstone",
+    label: "Superstone",
+    gunduz: superstone,
+    gece: superstoneGece,
+  },
 ];
 
 const TERASLAR: Option[] = [
@@ -117,7 +152,12 @@ const TERASLAR: Option[] = [
   { key: "boz", label: "Boz", gunduz: villa4, gece: terasJudiGece },
   { key: "light", label: "Light", gunduz: terasLight, gece: terasLightGece },
   { key: "luca", label: "Luca", gunduz: terasLuca, gece: terasLucaGece },
-  { key: "mavivilla", label: "Mavi Villa", gunduz: mavivilla, gece: mavivillagece },
+  {
+    key: "mavivilla",
+    label: "Mavi Villa",
+    gunduz: mavivilla,
+    gece: mavivillagece,
+  },
   { key: "gpt", label: "GPT Villa", gunduz: gpt, gece: gptgece },
 ];
 
@@ -212,7 +252,9 @@ const TileCard = memo(function TileCard({
               width: 15,
               height: 15,
               borderRadius: "50%",
-              background: isNight ? "rgba(255,255,255,0.92)" : "rgba(30,30,30,0.88)",
+              background: isNight
+                ? "rgba(255,255,255,0.92)"
+                : "rgba(30,30,30,0.88)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -235,8 +277,12 @@ const TileCard = memo(function TileCard({
           fontSize: 9,
           fontWeight: isSelected ? 600 : 400,
           color: isSelected
-            ? isNight ? "rgba(255,255,255,0.88)" : "rgba(0,0,0,0.85)"
-            : isNight ? "rgba(255,255,255,0.32)" : "rgba(0,0,0,0.38)",
+            ? isNight
+              ? "rgba(255,255,255,0.88)"
+              : "rgba(0,0,0,0.85)"
+            : isNight
+              ? "rgba(255,255,255,0.32)"
+              : "rgba(0,0,0,0.38)",
           letterSpacing: "0.07em",
           textTransform: "uppercase",
           textAlign: "center",
@@ -281,18 +327,24 @@ const CatalogPanel = memo(function CatalogPanel({
   const panelBg = isNight ? "rgba(10,10,18,0.8)" : "rgba(255,255,255,0.72)";
   const borderColor = isNight ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)";
   const dividerColor = isNight ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)";
-  const headerBorderColor = isNight ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.06)";
+  const headerBorderColor = isNight
+    ? "rgba(255,255,255,0.05)"
+    : "rgba(0,0,0,0.06)";
   const catLabelColor = isNight ? "rgba(255,255,255,0.65)" : "rgba(0,0,0,0.65)";
   const countPillBg = isNight ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.06)";
   const countPillColor = isNight ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.3)";
-  const footerBorderColor = isNight ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.05)";
-  const footerLabelColor = isNight ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.4)";
+  const footerBorderColor = isNight
+    ? "rgba(255,255,255,0.04)"
+    : "rgba(0,0,0,0.05)";
+  const footerLabelColor = isNight
+    ? "rgba(255,255,255,0.3)"
+    : "rgba(0,0,0,0.4)";
   const selCountColor =
     Object.keys(selections).length > 0
       ? "rgba(130,200,160,0.85)"
       : isNight
-      ? "rgba(255,255,255,0.14)"
-      : "rgba(0,0,0,0.25)";
+        ? "rgba(255,255,255,0.14)"
+        : "rgba(0,0,0,0.25)";
 
   return (
     <div
@@ -498,7 +550,7 @@ const CatalogPanel = memo(function CatalogPanel({
                   >
                     {
                       activeCat.options.find(
-                        (o) => o.key === selections[activeCat.id]
+                        (o) => o.key === selections[activeCat.id],
                       )?.label
                     }
                   </span>
@@ -536,7 +588,34 @@ export default function Create() {
   const statusBorder = isNight ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)";
   const statusCatColor = isNight ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.45)";
   const statusValColor = isNight ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.8)";
+  
+  useEffect(() => {
+    const preload = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
 
+    const hovuz = HOVUZLAR.find((o) => o.key === hovuzKey);
+    const kenar = KENAR_KAFELLER.find((o) => o.key === kenarKey);
+    const orta = ORTA_KAFELLER.find((o) => o.key === ortaKey);
+    const teras = TERASLAR.find((o) => o.key === terasKey);
+
+    if (hovuz) preload(isNight ? hovuz.gece : hovuz.gunduz);
+    if (kenar) preload(isNight ? kenar.gece : kenar.gunduz);
+    if (orta) preload(isNight ? orta.gece : orta.gunduz);
+    if (teras) preload(isNight ? teras.gece : teras.gunduz);
+  }, [hovuzKey, kenarKey, ortaKey, terasKey, isNight]);
+
+  useEffect(() => {
+    const preload = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
+
+    // qarşı mode-u preload et
+    const hovuz = HOVUZLAR.find((o) => o.key === hovuzKey);
+    if (hovuz) preload(!isNight ? hovuz.gece : hovuz.gunduz);
+  }, [isNight]);
   return (
     <div
       style={{
@@ -615,9 +694,7 @@ export default function Create() {
           border: isNight
             ? "1.5px solid rgba(96,165,250,0.25)"
             : "1.5px solid rgba(255,220,80,0.3)",
-          background: isNight
-            ? "rgba(15,15,30,0.88)"
-            : "rgba(255,215,60,0.88)",
+          background: isNight ? "rgba(15,15,30,0.88)" : "rgba(255,215,60,0.88)",
           backdropFilter: "blur(12px)",
           boxShadow: isNight
             ? "0 0 20px rgba(96,165,250,0.25)"
