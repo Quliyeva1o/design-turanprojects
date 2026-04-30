@@ -82,7 +82,7 @@ export default function Create() {
     if (orta) preload(orta.gunduz);
     if (teras) preload(teras.gece);
     if (teras) preload(teras.gunduz);
-  }, [hovuzKey, kenarKey, ortaKey, terasKey, isNight]);
+  }, [hovuzKey, kenarKey, ortaKey, terasKey]);
 
   return (
     <div
