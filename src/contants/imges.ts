@@ -44,17 +44,17 @@ import judiGreyorta from "../assets/ortakafeller/judiGreyorta.png";
 import judiGreyortaGece from "../assets/ortakafeller/judiGreyortaGece.png";
 import lucaGreyOrta from "../assets/ortakafeller/lucaGreyOrta.png";
 import lucaGreyOrtaGece from "../assets/ortakafeller/lucaGreyOrtaGece.png";
-import terasLight from "../assets/teraslar/villa3.png";
-import terasLightGece from "../assets/teraslar/villa3gece.png";
-import terasJudi from "../assets/teraslar/villa2.png";
-import terasJudiGece from "../assets/teraslar/villa3gecee.png";
-import terasLuca from "../assets/teraslar/hovuz.png";
-import terasLucaGece from "../assets/teraslar/hovuzgece.png";
-import mavivilla from "../assets/teraslar/mavivilla.png";
-import mavivillagece from "../assets/teraslar/mavivillagece.png";
-import villa4 from "../assets/teraslar/villa4.png";
-import gpt from "../assets/teraslar/mavihovuz.png";
-import gptgece from "../assets/teraslar/mavihovuzgece.png";
+import terasLight from "../assets/teraslar/villa3.webp";
+import terasLightGece from "../assets/teraslar/villa3gece.webp";
+import terasJudi from "../assets/teraslar/villa2.webp";
+import terasJudiGece from "../assets/teraslar/villa3gecee.webp";
+import terasLuca from "../assets/teraslar/hovuz.webp";
+import terasLucaGece from "../assets/teraslar/hovuzgece.webp";
+import mavivilla from "../assets/teraslar/mavivilla.webp";
+import mavivillagece from "../assets/teraslar/mavivillagece.webp";
+import villa4 from "../assets/teraslar/villa4.webp";
+import gpt from "../assets/teraslar/mavihovuz.webp";
+import gptgece from "../assets/teraslar/mavihovuzgece.webp";
 import type { Category, Option } from "../types";
 
 export const HOVUZLAR: Option[] = [
