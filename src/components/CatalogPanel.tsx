@@ -1,5 +1,5 @@
 import type { CatalogPanelProps, TileCardProps } from "../types";
-import { useState, useCallback, memo, useEffect } from "react";
+import { useState, useCallback, memo } from "react";
 
 
 const TileCard = memo(function TileCard({
